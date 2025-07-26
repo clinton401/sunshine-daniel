@@ -1,7 +1,7 @@
 import { type FC } from "react";
 import { ParentComp } from "@/components/parent-comp";
 import { Image as LucideImage } from "lucide-react";
-import weddingImg from "@/assets/wedding.JPG";
+import weddingImg from "@/assets/wedding.jpg";
 
 const images = Array.from({ length: 8 }, (_, i) => ({
   id: i,
