@@ -2,7 +2,7 @@ import { type FC, useState } from "react";
 import { NavLink, Link } from "react-router";
 import { Star } from "lucide-react";
 import { Divide as Hamburger } from "hamburger-react";
-import {motion, AnimatePresence} from "motion/react"
+import {motion, AnimatePresence} from "motion/react";
 
 
 export const links = [
@@ -49,7 +49,7 @@ export const links = [
 export const Navbar: FC = () => {
   const [isOpen, setOpen] = useState(false);
     return (
-      <header className="w-full fixed top-0 left-0  py-4 px-[2.5%] ham-menu flex items-center flex-wrap">
+      <motion.header className="w-full fixed top-0 left-0   py-4 px-[2.5%] ham-menu flex items-center flex-wrap z-20">
         <nav className="w-[70%] md:w-1/2 flex items-center justify-start">
           <Link to="/" className="flex items-center  ">
             <Star className="size-4 text-yellow-800 mr-1" /> Sunshine & Daniel
@@ -88,14 +88,14 @@ export const Navbar: FC = () => {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="fixed top-0 left-0 h-dvh   w-full   flex items-center justify-end "
+                className="fixed top-0 left-0 h-dvh z-[9999]  w-full   flex items-center justify-end "
               >
                 <div
-                  className="w-full fixed top-0 left-0 h-full  z-10 blur-sm backdrop-blur-sm"
+                  className="w-full fixed top-0 left-0 h-full  z-[120] blur-sm backdrop-blur-sm"
                   onClick={() => setOpen(false)}
                 ></div>
                 <motion.ul
-                  className="h-dvh w-[70%] overflow-y-auto   fixed flex z-[30] gap-4 flex-col ham-menu items-center  justify-center "
+                  className="h-dvh w-[70%] overflow-y-auto   fixed flex z-[130] gap-4 flex-col ham-menu items-center  justify-center "
                   initial="hidden"
                   animate="visible"
                   transition={{ staggerChildren: 0.3 }}
@@ -124,6 +124,6 @@ export const Navbar: FC = () => {
             )}
           </AnimatePresence>
         </nav>
-      </header>
+      </motion.header>
     );
 }
