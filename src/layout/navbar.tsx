@@ -75,7 +75,7 @@ export const Navbar: FC = () => {
         </div>
         <nav className="flex md:hidden w-full  items-center justify-end">
           
-          <div className="fixed top-4 right-[5%] z-[300]">
+          <div className="fixed top-4 right-[5%] rounded-md bg-background z-[300]">
             <Hamburger
               toggled={isOpen}
               toggle={setOpen}
