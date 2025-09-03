@@ -34,6 +34,6 @@ const containerVariant = {
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="w-full flex min-h-dvh pt-[80px] pb-8 px-[5%] flex-col items-center justify-center">{children}</motion.div>
+        className="w-full flex h-full  flex-1 py-8 px-[5%] flex-col items-center justify-center">{children}</motion.div>
     )
 }

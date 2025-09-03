@@ -1,8 +1,9 @@
 import { type FC } from "react";
-import { Gift } from "lucide-react";
 import { ParentComp } from "@/components/parent-comp";
+import { motion } from "motion/react";
+
 const giftImg =
-  "https://plus.unsplash.com/premium_photo-1663127554127-1f2fd7682180?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z2lmdHN8ZW58MHx8MHx8fDA%3D";
+  "https://plus.unsplash.com/premium_photo-1663127554127-1f2fd7682180?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0";
 
 const gifts = [
   {
@@ -12,7 +13,6 @@ const gifts = [
     contribution: "0119803944 (GTB) - Daniel Okolie",
     image:
       "https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/14/6228782/1.jpg?9548",
-    link: null, // no link provided
   },
   {
     id: 2,
@@ -26,7 +26,6 @@ const gifts = [
     name: "Honeymoon Support",
     contribution: "3092298852 (FirstBank) - Mercy Adekunle",
     image: giftImg,
-    link: null,
   },
   {
     id: 4,
@@ -60,8 +59,8 @@ const gifts = [
     id: 8,
     name: "Non-stick Pot Set",
     image:
-      "https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/50/6785552/1.jpg?9217",
-    link: "https://www.jumia.com.ng/tower-big-3-pcs-cooking-pot-tower-gold-silver-generic-mpg3163864.html",
+      "https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/49/575078/1.jpg?9333",
+    link: "https://www.jumia.com.ng/generic-big-size-non-stick-cooking-pots-with-fry-pan-87057594.html",
   },
   {
     id: 9,
@@ -76,59 +75,76 @@ const gifts = [
     contribution: "3092298852 (FirstBank) - Mercy Adekunle",
     note: "Send receipt to 08168559506",
     image: giftImg,
-    link: null,
   },
 ];
-
-
-
 
 const Gifts: FC = () => {
   return (
     <ParentComp>
-      <Gift className="text-yellow-600 mb-2" />
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="flex flex-col items-center"
+      >
+        <h1 className="text-4xl font-amatic font-bold text-center mb-4">
+          Our Gift Wishlist
+        </h1>
+        <p className="text-center pb-8 text-gray-700 max-w-xl">
+          Your presence is our greatest joy, but if you’d love to bless us with
+          a gift, here are a few thoughtful ideas.
+        </p>
+      </motion.div>
 
-      <h1 className="text-2xl font-bold text-center mb-4">Our Gift Wishlist</h1>
-
-      <p className="text-center pb-8">
-        Your presence is our joy, but if you’d love to gift us something
-        special, here are a few ideas.
-      </p>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-[90%]"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.2 } },
+        }}
+      >
         {gifts.map((gift) => (
-          <div
+          <motion.div
             key={gift.id}
-            className="rounded-xl overflow-hidden shadow-md border"
+            className="rounded-2xl overflow-hidden shadow-lg border bg-white flex flex-col hover:shadow-xl transition"
+            variants={{
+              hidden: { opacity: 0, scale: 0.9, y: 20 },
+              visible: {
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                transition: { duration: 0.5 },
+              },
+            }}
           >
             <img
               src={gift.image}
               alt={gift.name}
-              className="w-full h-52 object-contain"
+              className="w-full h-56 object-contain bg-gray-50 p-4"
             />
             <div className="p-4 flex flex-col items-center text-center">
               <h3 className="font-semibold text-lg mb-2">{gift.name}</h3>
 
-              {/* If link exists, show "Buy This Gift" button */}
               {gift.link ? (
                 <a
                   href={gift.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white bg-yellow-600 px-4 py-2 rounded-md hover:bg-yellow-700 transition"
+                  className="text-white bg-yellow-600 px-4 py-2 rounded-lg hover:bg-yellow-700 transition-colors"
                 >
                   Buy This Gift
                 </a>
               ) : (
-                /* Otherwise show contribution info */
-                <div className="bg-gray-100 p-3 rounded-md w-full">
+                <div className="bg-gray-100 p-3 rounded-lg w-full text-sm">
                   {gift.price && (
-                    <p className="text-sm font-medium mb-1">
-                      Price: {gift.price}
-                    </p>
+                    <p className="font-medium mb-1">Price: {gift.price}</p>
                   )}
                   {gift.contribution && (
-                    <p className="text-sm font-medium text-gray-700">
+                    <p className="font-medium text-gray-700">
                       Send to: {gift.contribution}
                     </p>
                   )}
@@ -138,12 +154,11 @@ const Gifts: FC = () => {
                 </div>
               )}
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </ParentComp>
   );
 };
-
 
 export default Gifts;

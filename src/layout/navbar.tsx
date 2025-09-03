@@ -1,12 +1,12 @@
 import { type FC, useState } from "react";
 import { NavLink, Link } from "react-router";
-import { Star } from "lucide-react";
 import { Divide as Hamburger } from "hamburger-react";
 import {motion, AnimatePresence} from "motion/react";
 
 
 export const links = [
     { name: "Home", url: "/" },
+    { name: "Story", url: "/story" },
     { name: "Invitation", url: "/invitation" },
     { name: "Gift", url: "/gift" },
     { name: "Gallery", url: "/gallery" },
@@ -16,25 +16,30 @@ export const links = [
   const hamMenuVariant = {
     hidden: {
       x: "100vw",
-      
+      opacity: 0,
+      filter: "blur(20px)",
     },
     visible: {
       x: 0,
+      opacity: 1,
+      filter: "blur(0px)",
       transition: {
         duration: 0.3,
         ease: "easeIn",
-
       },
-      exit: {
-        x: "100vw",
-        transition: {
-          duration: 0.3,
-          ease: "easeIn",
-          when: "beforeChildren",
-        },
-      }
-    }
-  } as const
+    },
+    exit: {
+      x: "100vw",
+      opacity: 0,
+
+      filter: "blur(20px)",
+      transition: {
+        duration: 0.3,
+        ease: "easeIn",
+        when: "beforeChildren",
+      },
+    },
+  } as const;
   
   const linksVariants = {
   hidden: { opacity: 0,
@@ -49,14 +54,13 @@ export const links = [
 export const Navbar: FC = () => {
   const [isOpen, setOpen] = useState(false);
     return (
-      <motion.header className="w-full fixed top-0 left-0   py-4 px-[2.5%] ham-menu flex items-center flex-wrap z-20">
-        <nav className="w-[70%] md:w-1/2 flex items-center justify-start">
-          <Link to="/" className="flex items-center  ">
-            <Star className="size-4 text-yellow-800 mr-1" /> Sunshine & Daniel
-          </Link>
-        </nav>
-        <nav className="w-1/2 md:flex hidden">
-          <ul className="flex  w-full justify-between items-center  gap-4">
+      <motion.header className="w-full  top-0 left-0  pt-20 md:pb-4 px-[2.5%]  flex items-center flex-wrap z-20">
+     
+        <div className="w-full flex items-center flex-col justify-center">
+          <h1 className="text-5xl font-bold font-amatic w-full text-center pb-4 md:pb-10">
+            Daniel & Sunshine
+          </h1>
+          <ul className=" hidden md:flex items-center justify-center gap-6 flex-wrap">
             {links.map((link) => (
               <li key={link.url} className="links">
                 <NavLink
@@ -68,18 +72,19 @@ export const Navbar: FC = () => {
               </li>
             ))}
           </ul>
-        </nav>
-        <nav className="flex md:hidden w-[30%]  items-center justify-end">
-          {/* <motion.button className="bg-transparent p-0 m-0"  layoutId="ham-menu"  transition={{ type: "spring" }} > */}
-          <Hamburger
-            toggled={isOpen}
-            toggle={setOpen}
-            size={20}
-            distance="md"
-            rounded
-            hideOutline={false}
-          />
-          {/* </motion.button> */}
+        </div>
+        <nav className="flex md:hidden w-full  items-center justify-end">
+          
+          <div className="fixed top-4 right-[5%] z-[300]">
+            <Hamburger
+              toggled={isOpen}
+              toggle={setOpen}
+              size={20}
+              distance="md"
+              rounded
+              hideOutline={false}
+            />
+          </div>
           <AnimatePresence>
             {isOpen && (
               <motion.section
@@ -88,18 +93,22 @@ export const Navbar: FC = () => {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="fixed top-0 left-0 h-dvh z-[9999]  w-full   flex items-center justify-end "
+                layout
+                className="fixed top-0 left-0 h-dvh z-[199]  w-full   flex items-center justify-end "
               >
                 <div
-                  className="w-full fixed top-0 left-0 h-full  z-[120] blur-sm backdrop-blur-sm"
+                  className="w-full fixed top-0 left-0 h-full  z-[120]"
                   onClick={() => setOpen(false)}
                 ></div>
                 <motion.ul
-                  className="h-dvh w-[70%] overflow-y-auto   fixed flex z-[130] gap-4 flex-col ham-menu items-center  justify-center "
+                  className="h-dvh w-[70%] overflow-y-auto px-4 py-10  fixed flex z-[130]  flex-col ham-menu  "
                   initial="hidden"
                   animate="visible"
                   transition={{ staggerChildren: 0.3 }}
                 >
+                  <li className="text-3xl font-bold font-amatic pb-2">
+                    Sunshine & Daniel
+                  </li>
                   {links.map((link) => {
                     return (
                       <motion.li
@@ -107,11 +116,11 @@ export const Navbar: FC = () => {
                         animate="visible"
                         key={link.name}
                         variants={linksVariants}
-                        className="w-full flex justify-center items-center"
+                        className="w-full  flex justify-center items-center"
                       >
                         <Link
                           to={link.url}
-                          className="w-full text-center"
+                          className="w-full text-left px-2 py-3 rounded-md hover:bg-secondary transition-color ease-in duration-300"
                           onClick={() => setOpen(false)}
                         >
                           {link.name}

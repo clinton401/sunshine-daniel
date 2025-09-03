@@ -1,7 +1,7 @@
 import { type FC } from "react";
 import { ParentComp } from "@/components/parent-comp";
-import { Image as LucideImage } from "lucide-react";
 import weddingImg from "@/assets/wedding.jpg";
+import { motion } from "motion/react";
 
 const images = Array.from({ length: 8 }, (_, i) => ({
   id: i,
@@ -12,27 +12,50 @@ const images = Array.from({ length: 8 }, (_, i) => ({
 const Gallery: FC = () => {
   return (
     <ParentComp>
-      <LucideImage className="text-pink-800 mb-2" />
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
+        <h1 className="text-4xl font-amatic w-full text-center font-bold mb-4">
+          Wedding Gallery
+        </h1>
+        <p className="w-full text-center pb-8 text-gray-700">
+          A glimpse into our beautiful day full of laughter, love, and memories.
+        </p>
+      </motion.div>
 
-      <h1 className="text-2xl w-full text-center font-bold mb-4">
-        Wedding Gallery
-      </h1>
-
-      <p className="w-full text-center pb-8">
-        A glimpse into our beautiful day — full of laughter, love, and memories.
-      </p>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 ">
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-[80%] gap-4 w-full"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={{
+          hidden: {},
+          visible: {
+            transition: { staggerChildren: 0.2 },
+          },
+        }}
+      >
         {images.map((img) => (
-          <div key={img.id} className="rounded-xl overflow-hidden shadow-md">
+          <motion.div
+            key={img.id}
+            className="rounded-xl overflow-hidden shadow-md relative"
+
+            variants={{
+              hidden: { opacity: 0, scale: 0.9, y: 20 },
+              visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.5 } },
+            }}
+          >
             <img
               src={img.src}
               alt={img.alt}
-              className="w-full h-68 object-cover"
+              className="w-full object-cover hover:scale-110 transition-transform duration-300 ease-in"
             />
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </ParentComp>
   );
 };

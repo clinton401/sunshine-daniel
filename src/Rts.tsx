@@ -5,6 +5,7 @@ import Gallery from "./pages/gallery";
 import Gifts from "./pages/gifts";
 import Invitation from "./pages/invitation";
 import Location from "./pages/location";
+import Story from "./pages/story";
 import NotFound from "./pages/not-found";
 import {useLocation} from "react-router";
 import { AnimatePresence } from "motion/react";
@@ -17,6 +18,7 @@ export const Rts: FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/invitation" element={<Invitation />} />
           <Route path="/gift" element={<Gifts />} />
+          <Route path="/story" element={<Story />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/location" element={<Location />} />
           <Route path="*" element={<NotFound/>} />

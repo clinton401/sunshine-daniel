@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Sora:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Sora:wght@100..800&family=Amatic+SC:wght@400;700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -6,6 +6,9 @@
 
 @theme {
   --font-sora: "Sora", "sans-serif";
+  --font-amatic: "Amatic SC", "sans-serif";
+  --font-raleway: "Raleway", sans-serif;
+  --font-josefin: "Josefin Sans", sans-serif;
   /* --spacing-2/5p: "2.5%"; */
   /* --breakpoint-: 30rem; */
 }
@@ -126,10 +129,15 @@
   } 
 }
 
-body, .ham-menu {
-  background: #ADA996;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+body {
+background: url("./assets/background.jpg") no-repeat center center fixed;
+  background-size: cover;
+  /* font-family: var(--font-sora); */
+  transition: background-color 0.3s, color 0.3s;
+}
+ .ham-menu {
+background-color: #ffffff;
+
   
 }
 
@@ -144,6 +152,7 @@ body, .ham-menu {
   left: 0;
   height: 3px;
   width: 0%;
+  border-radius: 9999px;
   background: var(--foreground);
   transition: width 0.3s ease-in;
 }
